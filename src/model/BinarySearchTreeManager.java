@@ -45,8 +45,8 @@ public class BinarySearchTreeManager {
 		}
 	}
 	
-	//Update Class Diagram
-	public void addRecursive(long number, BSTNode currentNode) {
+	//Change in Class Diagram
+	public void addRecursive(long number, BSTNode currentNode) throws StackOverflowError{
 		if(currentNode == null) {
 			currentNode = firstNode;
 		}
@@ -149,7 +149,6 @@ public class BinarySearchTreeManager {
 		return false;
 	}
 
-	//INCOMPLETE
 	public void removeIterative(long number) {
 		if(firstNode != null) {
 			BSTNode currentNode = firstNode;
@@ -208,7 +207,21 @@ public class BinarySearchTreeManager {
 						currentNode.setLeft(null);
 					}
 					else {
-						//Special case
+						BSTNode minSubTreeNode = minNodeIterative(currentNode);
+						
+						if(minSubTreeNode.getRight() != null) {
+							minSubTreeNode.getFather().setLeft(minSubTreeNode.getRight());
+							minSubTreeNode.setRight(null);
+						}
+						minSubTreeNode.setFather(null);
+						
+						minSubTreeNode.setFather(currentNode.getFather());
+						minSubTreeNode.setRight(currentNode.getRight());
+						minSubTreeNode.setLeft(currentNode.getLeft());
+						
+						currentNode.setFather(null);
+						currentNode.setLeft(null);
+						currentNode.setRight(null);
 					}
 					check = true;
 				}
@@ -216,25 +229,122 @@ public class BinarySearchTreeManager {
 		}		
 	}
 	
-	
-	
 	//Change in class diagram
 	public void removeRecursive(long number, BSTNode currentNode)throws StackOverflowError {
-		//INCOMPLETE
-	}
-	
-	//Put private
-		public BSTNode minValue(BSTNode currentNode) throws StackOverflowError{
-			if(currentNode == null) {
-				currentNode = firstNode;
+		if(currentNode == null) {
+			currentNode = firstNode;
+		}
+				
+		if(firstNode != null) {
+			if(number > currentNode.getNumber() ) {
+				if(currentNode.getRight() != null){
+					removeRecursive(number,currentNode.getRight());					
+				}
+				else {										
+					//Terminates method, node not found.
+				}
 			}
-			BSTNode left = currentNode.getLeft();
-			if(left == null) {
-				return currentNode;
-			}else {		
-				return minValue(left);
+			else if (number < currentNode.getNumber()) {					
+				if(currentNode.getLeft() != null){
+					removeRecursive(number,currentNode.getLeft());					
+				}
+				else {										
+					//Terminates method, node not found.
+				}
+			}
+			else {
+				if(currentNode.getLeft() == null && currentNode.getRight() == null) {
+					if(currentNode.getFather().getLeft() == currentNode) {
+						currentNode.getFather().setLeft(null);
+					}
+					else {
+						currentNode.getFather().setRight(null);
+					}
+					currentNode.setFather(null);
+				}
+				else if(currentNode.getLeft() != null) {
+					BSTNode left =  currentNode.getLeft();
+					BSTNode father = currentNode .getFather();
+					if(father.getLeft() == currentNode) {
+						father.setLeft(left);
+					}
+					else {
+						father.setRight(left);
+					}
+					left.setFather(father);
+					currentNode.setFather(null);
+					currentNode.setLeft(null);
+				}
+				else if(currentNode.getRight() != null) {
+					BSTNode right =  currentNode.getRight();
+					BSTNode father = currentNode .getFather();
+					if(father.getLeft() == currentNode) {
+						father.setLeft(right);
+					}
+					else {
+						father.setRight(right);
+					}
+					right.setFather(father);
+					currentNode.setFather(null);
+					currentNode.setLeft(null);
+				}
+				else {
+					BSTNode minSubTreeNode = minNodeRecursive(currentNode);
+					
+					if(minSubTreeNode.getRight() != null) {
+						minSubTreeNode.getFather().setLeft(minSubTreeNode.getRight());
+						minSubTreeNode.setRight(null);
+					}
+					minSubTreeNode.setFather(null);
+					
+					minSubTreeNode.setFather(currentNode.getFather());
+					minSubTreeNode.setRight(currentNode.getRight());
+					minSubTreeNode.setLeft(currentNode.getLeft());
+					
+					currentNode.setFather(null);
+					currentNode.setLeft(null);
+					currentNode.setRight(null);
+				}
+				//Terminates method, node removed.
 			}
 		}
+	}
+	
+	//Add to class diagram
+	private BSTNode minNodeRecursive(BSTNode currentNode) throws StackOverflowError{
+		if(currentNode == null) {
+			currentNode = firstNode;
+		}
+		
+		if(currentNode != null) {	
+			BSTNode left = currentNode.getLeft();
+			
+			if(left == null) {
+				return currentNode;
+			}
+			else {		
+				return minNodeRecursive(left);
+			}
+		}
+		else {
+			return null;
+		}
+	}
+	
+	//Add to class diagram
+	private BSTNode minNodeIterative(BSTNode currentNode) {
+		if(currentNode == null) {
+			currentNode = firstNode;
+		}
+				
+		if(currentNode != null) {
+			while(currentNode.getLeft() != null) {
+				currentNode = currentNode.getLeft();
+			}			
+		}
+		return currentNode;
+	}
+	
 	public void generateRandomNodes(int n) {
 		Random r = new Random();
 		for (int i = 0; i < n; i++) {
