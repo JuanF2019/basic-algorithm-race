@@ -2,8 +2,10 @@ package model;
 
 public class BSTNode {
 	private long number;
-	private LLNode left;
-	private LLNode right;
+	
+	private BSTNode father;
+	private BSTNode left;
+	private BSTNode right;
 	
 	public BSTNode(long number) {
 		this.number = number;
@@ -13,20 +15,28 @@ public class BSTNode {
 		return number;
 	}
 
-	public LLNode getLeft() {
+	public BSTNode getLeft() {
 		return left;
 	}
 	
-	public LLNode getRight() {
+	public BSTNode getRight() {
 		return right;
 	}
+	
+	public BSTNode getFather() {
+		return father;
+	}
 
-	public void setLeft(LLNode left) {
+	public void setLeft(BSTNode left) {
 		this.left = left;
 	}	
 
-	public void setRight(LLNode right) {
+	public void setRight(BSTNode right) {
 		this.right = right;
+	}	
+
+	public void setFather(BSTNode father) {
+		this.father = father;
 	}
 
 }

@@ -58,8 +58,9 @@ public class ArrayListManager {
 	}
 	
 	public void generateRandomNodes(int n) {
+		Random r = new Random();		
 		for (int i = 0; i < n; i++) {
-			nodes.add(new ALNode(new Random().nextLong()));
+			nodes.add(new ALNode(r.nextLong()));
 		}
 	}
 
