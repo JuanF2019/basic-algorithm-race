@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="388.0" prefWidth="900.0" style="-fx-background-color: #2B2C28;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar style="-fx-background-color: #FFFAFB;" VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="About">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#showExtraInformation" text="About Algorithms Race" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane dividerPositions="0.33407572383073497" focusTraversable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="900.0" style="-fx-background-color: #A9A9A9;" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="296.0" style="-fx-background-color: #2B2C28;">
+               <children>
+                  <VBox alignment="CENTER" layoutY="-2.0" prefHeight="343.0" prefWidth="296.0" spacing="10.0" style="-fx-background-color: #2B2C28;">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="24.0" prefWidth="221.0">
+                           <children>
+                              <Label text="N:" textFill="WHITE">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="nValueTextField" prefHeight="31.0" prefWidth="219.0" />
+                           </children>
+                        </HBox>
+                        <Label text="Algorithm:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
+                        <RadioButton fx:id="addRButton" mnemonicParsing="false" text="Add" textFill="WHITE">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="algorithmGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="findRButton" mnemonicParsing="false" text="Find" textFill="WHITE" toggleGroup="$algorithmGroup" />
+                        <RadioButton fx:id="removeRButton" mnemonicParsing="false" text="Remove" textFill="WHITE" toggleGroup="$algorithmGroup" />
+                        <Label text="Mode" textFill="WHITE">
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="iterativeRButton" mnemonicParsing="false" text="Iterative" textFill="WHITE">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="modeGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="recursiveRButton" mnemonicParsing="false" text="Recursive" textFill="WHITE" toggleGroup="$modeGroup" />
+                        <HBox alignment="CENTER" spacing="15.0">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                           <children>
+                              <Button fx:id="runButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startRace" text="RUN!">
+                                 <font>
+                                    <Font name="System Bold Italic" size="15.0" />
+                                 </font></Button>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+        </AnchorPane>
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="594.0" style="-fx-background-color: #2B2C28;">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="354.0" prefWidth="594.0" style="-fx-background-color: #000000;">
+                     <children>
+                        <Label text="Race Status" textFill="WHITE">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="mainChronometerLabel" text="00:00:000" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="36.0" />
+                           </font>
+                        </Label>
+                        <GridPane alignment="CENTER" prefHeight="122.0" prefWidth="594.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="87.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="155.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="180.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <ImageView fitHeight="90.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@ArrayListIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="TOP_CENTER" GridPane.columnIndex="1">
+                                 <children>
+                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@LinkedListIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" GridPane.columnIndex="2">
+                                 <children>
+                                    <ImageView fitHeight="100.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@BinarySearchTreeIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefWidth="198.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label fx:id="ALChronometerLabel" text="00:00:000" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label fx:id="LLChronometerLabel" text="00:00:000" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label fx:id="BSTChronometerLabel" text="00:00:000" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER" fillHeight="false" spacing="7.0" GridPane.rowIndex="2" />
+                              <HBox alignment="CENTER" fillHeight="false" prefWidth="198.0" spacing="7.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <HBox alignment="CENTER" fillHeight="false" spacing="7.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                           </children>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </GridPane>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Circle fx:id="circleBig" fill="#1f93ff00" radius="40.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="3.0" />
+                              <Circle fx:id="circleSmall" fill="#1f93ff00" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="3.0" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </VBox>
+               </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+  </children>
+</VBox>

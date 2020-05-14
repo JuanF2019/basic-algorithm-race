@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Random;
-
 public class BinarySearchTreeManager {
 	private BSTNode firstNode;
 	
@@ -45,7 +43,7 @@ public class BinarySearchTreeManager {
 		}
 	}
 	
-	//Change in Class Diagram
+	
 	public void addRecursive(long number, BSTNode currentNode) throws StackOverflowError{
 		if(currentNode == null) {
 			currentNode = firstNode;
@@ -179,35 +177,53 @@ public class BinarySearchTreeManager {
 							currentNode.getFather().setRight(null);
 						}
 						currentNode.setFather(null);
+						if(currentNode == firstNode) {
+							firstNode = null;
+						}
 					}
-					else if(currentNode.getLeft() != null) {
+					else if(currentNode.getLeft() != null && currentNode.getRight() == null) {
 						BSTNode left =  currentNode.getLeft();
 						BSTNode father = currentNode .getFather();
-						if(father.getLeft() == currentNode) {
-							father.setLeft(left);
+						
+						if(currentNode == firstNode) {
+							firstNode = left;
 						}
 						else {
-							father.setRight(left);
+							if(father.getLeft() == currentNode) {
+								father.setLeft(left);
+							}
+							else {
+								father.setRight(left);
+							}							
 						}
 						left.setFather(father);
 						currentNode.setFather(null);
 						currentNode.setLeft(null);
+						
 					}
-					else if(currentNode.getRight() != null) {
+					else if(currentNode.getRight() != null && currentNode.getLeft() == null) {
 						BSTNode right =  currentNode.getRight();
 						BSTNode father = currentNode .getFather();
-						if(father.getLeft() == currentNode) {
-							father.setLeft(right);
+						
+						if(currentNode == firstNode) {
+							firstNode = right;
 						}
 						else {
-							father.setRight(right);
+							if(father.getLeft() == currentNode) {
+								father.setLeft(right);
+							}
+							else {
+								father.setRight(right);
+							}
 						}
+						
 						right.setFather(father);
 						currentNode.setFather(null);
 						currentNode.setLeft(null);
+						
 					}
 					else {
-						BSTNode minSubTreeNode = minNodeIterative(currentNode);
+						BSTNode minSubTreeNode = minNodeIterative(currentNode.getRight());
 						
 						if(minSubTreeNode.getRight() != null) {
 							minSubTreeNode.getFather().setLeft(minSubTreeNode.getRight());
@@ -222,7 +238,12 @@ public class BinarySearchTreeManager {
 						currentNode.setFather(null);
 						currentNode.setLeft(null);
 						currentNode.setRight(null);
+						
+						if(currentNode == firstNode) {
+							firstNode = minSubTreeNode;
+						}
 					}
+					
 					check = true;
 				}
 			}
@@ -261,35 +282,53 @@ public class BinarySearchTreeManager {
 						currentNode.getFather().setRight(null);
 					}
 					currentNode.setFather(null);
+					if(currentNode == firstNode) {
+						firstNode = null;
+					}
 				}
-				else if(currentNode.getLeft() != null) {
+				else if(currentNode.getLeft() != null && currentNode.getRight() == null) {
 					BSTNode left =  currentNode.getLeft();
 					BSTNode father = currentNode .getFather();
-					if(father.getLeft() == currentNode) {
-						father.setLeft(left);
+					
+					if(currentNode == firstNode) {
+						firstNode = left;
 					}
 					else {
-						father.setRight(left);
+						if(father.getLeft() == currentNode) {
+							father.setLeft(left);
+						}
+						else {
+							father.setRight(left);
+						}							
 					}
 					left.setFather(father);
 					currentNode.setFather(null);
 					currentNode.setLeft(null);
+					
 				}
-				else if(currentNode.getRight() != null) {
+				else if(currentNode.getRight() != null && currentNode.getLeft() == null) {
 					BSTNode right =  currentNode.getRight();
 					BSTNode father = currentNode .getFather();
-					if(father.getLeft() == currentNode) {
-						father.setLeft(right);
+					
+					if(currentNode == firstNode) {
+						firstNode = right;
 					}
 					else {
-						father.setRight(right);
+						if(father.getLeft() == currentNode) {
+							father.setLeft(right);
+						}
+						else {
+							father.setRight(right);
+						}
 					}
+					
 					right.setFather(father);
 					currentNode.setFather(null);
 					currentNode.setLeft(null);
+					
 				}
 				else {
-					BSTNode minSubTreeNode = minNodeRecursive(currentNode);
+					BSTNode minSubTreeNode = minNodeRecursive(currentNode.getRight());
 					
 					if(minSubTreeNode.getRight() != null) {
 						minSubTreeNode.getFather().setLeft(minSubTreeNode.getRight());
@@ -304,6 +343,10 @@ public class BinarySearchTreeManager {
 					currentNode.setFather(null);
 					currentNode.setLeft(null);
 					currentNode.setRight(null);
+					
+					if(currentNode == firstNode) {
+						firstNode = minSubTreeNode;
+					}
 				}
 				//Terminates method, node removed.
 			}
@@ -344,12 +387,9 @@ public class BinarySearchTreeManager {
 		}
 		return currentNode;
 	}
-	
-	public void generateRandomNodes(int n) {
-		Random r = new Random();
-		for (int i = 0; i < n; i++) {
-			addIterative(r.nextLong());
-		}
+			
+	public BSTNode getFirstNode() {
+		return firstNode;
 	}
 
 }

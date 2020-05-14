@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Random;
-
 public class LinkedListManager {
 	private LLNode firstNode;
 	
@@ -140,13 +138,23 @@ public class LinkedListManager {
 				}													
 			}		
 		}
+	}	
+
+	public void addIterativeFirst(long number) {
+		LLNode nodeToAdd = new LLNode(number);
+		
+		if(firstNode == null) {
+			firstNode = nodeToAdd;
+		}
+		else{
+			nodeToAdd.setNextNode(firstNode);
+			firstNode.setPreNode(nodeToAdd);
+			firstNode = nodeToAdd;
+		}
 	}
 	
-	public void generateRandomNodes(int n) {
-		Random r = new Random();
-		for (int i = 0; i < n; i++) {
-			addIterative(r.nextLong());
-		}
+	public LLNode getFirstNode() {
+		return firstNode;
 	}
 
 }
